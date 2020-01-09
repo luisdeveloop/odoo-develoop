@@ -98,19 +98,28 @@
                 </table>
 			</xpath>
 			
-			<xpath expr="//p[@name='comment']" position="replace">
-				<div class="col-auto mw-100 mb-2" name="due_date">
-					<strong>Esta factura .....:</strong>
-					<p class="m-0" t-field="o.date_due"/>
-				</div>
+			<xpath expr="//p[@t-if='o.reference']" position="replace">
+                <p>
+					<strong>Esta factura cubre el siguiente periodo:</strong>
+					<span t-field="o.date_invoice" t-options='{"format": "MM/yyyy"}'/>
+				</p>
+            </xpath>
+            
+            <xpath expr="//p[@t-if='o.comment']" position="replace"/>
+                    
+            <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
+				<p>
+					<strong>Fecha vencimiento:</strong>
+					<span t-field="o.date_due"/>
+				</p>
 			</xpath>
-			
-			<xpath expr="//p[@name='payment_term']" position="before">
-				<div class="col-auto mw-100 mb-2" name="due_date">
-					<strong>Due Date:</strong>
-					<p class="m-0" t-field="o.date_due"/>
-				</div>
-			</xpath>
+            
+            <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="replace">
+                <p>
+					<strong>Plazo de pago:</strong>
+					<span t-field="o.payment_term_id"/>
+				</p>
+            </xpath>
 			
         </template>   
 	</data>
