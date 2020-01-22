@@ -97,13 +97,27 @@
 			</xpath>
 			
 			<xpath expr="//p[@t-if='o.reference']" position="replace">
-                <p>
+                <p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Esta factura cubre el siguiente periodo:</strong>
 					<span t-field="o.date_invoice" t-options='{"format": "MM/yyyy"}'/>
+                    <br/>
 				</p>
             </xpath>
             
-            <xpath expr="//p[@t-if='o.comment']" position="replace"/>
+            <xpath expr="//p[@t-if='o.comment']" position="replace">
+                <p t-if="o.team_id.name == 'ERP'">
+					<strong>Notas:</strong>
+                    <br/>
+					<span t-field="o.comment"/>
+                    <br/>
+				</p>
+                <p t-if="o.team_id.name == 'Software a medida'">
+					<strong>Notas:</strong>
+                    <br/>
+					<span t-field="o.comment"/>
+                    <br/>
+				</p>
+            </xpath>
                     
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
 				<p>
