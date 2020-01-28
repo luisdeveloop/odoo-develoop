@@ -117,6 +117,12 @@
 					<span t-field="o.comment"/>
                     <br/>
 				</p>
+				<p t-if="o.team_id.name == 'SERVICIOS'">
+					<strong>Notas:</strong>
+                    <br/>
+					<span t-field="o.comment"/>
+                    <br/>
+				</p>
             </xpath>
                     
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
