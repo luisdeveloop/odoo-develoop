@@ -15,7 +15,7 @@
                             <p class="m-0" t-field="o.date_invoice"/>
                         </div>
                         <div name="reference" class="col-auto mw-100 mb-2" t-if="o.reference">
-                            <strong>Referencia:</strong>
+                            <strong>Número Factura:</strong>
                             <p class="m-0" t-field="o.number"/>
                         </div>
                 </div>
@@ -128,10 +128,12 @@
             
             <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="replace">
                 <p>
-					<strong>Plazo de pago:</strong>
+					<strong>Forma de pago:</strong>
 					<span t-field="o.payment_term_id"/>
 				</p>
             </xpath>
+			
+			
 			
         </template>   
 	</data>
