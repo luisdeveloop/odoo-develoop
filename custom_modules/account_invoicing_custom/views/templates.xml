@@ -126,17 +126,17 @@
             </xpath>
                     
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
-				<p>
+				<!--<p>
 					<strong>Fecha vencimiento:</strong>
 					<span t-field="o.date_due"/>
-				</p>
+				</p>-->
 			</xpath>
             
             <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="replace">
-                <p>
+                <!--<p>
 					<strong>Forma de pago:</strong>
 					<span t-field="o.payment_term_id"/>
-				</p>
+				</p>-->
             </xpath>
 			
 			
