@@ -126,17 +126,28 @@
             </xpath>
                     
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
-				<p>
+				<!--<p>
 					<strong>Fecha vencimiento:</strong>
-					<span t-field="o.date_due"/>
-				</p>
+					<!--<span t-field="o.date_due"/>
+                    <t t-foreach="o.move_id.line_ids" t-as="move">
+                        <tr t-if="move.debit">
+                            <t>
+                                <td><span t-field="move.debit"/></td>
+                            </t>
+                            <t>
+                                <td><span t-field="move.date_maturity"/></td>
+                            </t>
+                            <br/>
+                        </tr>
+                    </t>
+				</p>-->
 			</xpath>
             
             <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="replace">
-                <p>
+                <!--<p>
 					<strong>Forma de pago:</strong>
 					<span t-field="o.payment_term_id"/>
-				</p>
+				</p>-->
             </xpath>
 			
 			
