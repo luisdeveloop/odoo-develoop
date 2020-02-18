@@ -128,7 +128,7 @@
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
 				<!--<p>
 					<strong>Fecha vencimiento:</strong>
-					<!--<span t-field="o.date_due"/>
+					<span t-field="o.date_due"/>
                     <t t-foreach="o.move_id.line_ids" t-as="move">
                         <tr t-if="move.debit">
                             <t>
