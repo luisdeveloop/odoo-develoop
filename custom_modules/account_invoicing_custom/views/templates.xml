@@ -144,10 +144,10 @@
 			</xpath>
             
             <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="replace">
-                <!--<p>
+                <p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Forma de pago:</strong>
 					<span t-field="o.payment_term_id"/>
-				</p>-->
+				</p>
             </xpath>
 			
 			
