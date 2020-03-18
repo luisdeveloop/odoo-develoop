@@ -3,7 +3,10 @@
 		<template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
 		
 			<xpath expr="//div[@class='page']//h2" position="replace">
-				<h2>
+				<h2 t-if="o.name == 'rectificativa'">
+					<span>Factura Rectificativa</span>
+				</h2>
+				<h2 t-if="o.name != 'rectificativa'">
 					<span>Factura</span>
 				</h2>
 			</xpath>
