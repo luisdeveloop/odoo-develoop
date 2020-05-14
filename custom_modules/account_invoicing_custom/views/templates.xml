@@ -1,7 +1,7 @@
 ﻿<odoo>
-	<data>
+    <data>
 		<template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
-		
+            
 			<xpath expr="//div[@class='page']//h2" position="replace">
 				<h2 t-if="o.name == 'rectificativa'">
 					<span>Factura Rectificativa</span>
@@ -128,7 +128,7 @@
 				</p>
             </xpath>
                     
-            <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
+            <xpath expr="//p[@t-if='o.payment_term_id']" position="after">
 				<p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Fecha vencimiento:</strong>
 					<span t-field="o.date_due"/>
@@ -152,9 +152,6 @@
 					<span t-field="o.payment_term_id"/>
 				</p>
             </xpath>
-			
-			
-			
         </template>   
 	</data>
 </odoo>
