@@ -129,20 +129,15 @@
             </xpath>
                     
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
+				<p t-if="o.payment_term_id" name="payment_term">
+                    <span style="color:white" t-field="o.payment_term_id.note"/>
+                </p>
+			</xpath>
+                    
+            <xpath expr="//p[@t-if='o.payment_term_id']" position="after">
 				<p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Fecha vencimiento:</strong>
 					<span t-field="o.date_due"/>
-                    <!--<t t-foreach="o.move_id.line_ids" t-as="move">
-                        <tr t-if="move.debit">
-                            <t>
-                                <td><span t-field="move.debit"/></td>
-                            </t>
-                            <t>
-                                <td><span t-field="move.date_maturity"/></td>
-                            </t>
-                            <br/>
-                        </tr>
-                    </t>-->
 				</p>
 			</xpath>
             
