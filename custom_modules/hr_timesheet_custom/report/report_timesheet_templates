@@ -1,5 +1,5 @@
 <odoo>
-    <template id="report_timesheet_custom" inherit_id="report_timesheet">
+    <template id="report_timesheet_custom" inherit_id="hr_timesheet.report_timesheet">
 		<xpath expr="//tbody" position="replace">
 			<tbody>
 				<tr t-foreach="docs" t-as="l">
