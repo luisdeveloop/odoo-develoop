@@ -3,10 +3,10 @@
 		<template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
 		
 			<xpath expr="//div[@class='page']//h2" position="replace">
-				<h2 t-if="o.name == 'rectificativa'">
+				<h2 t-if="o.type == 'out_refund'">
 					<span>Factura Rectificativa</span>
 				</h2>
-				<h2 t-if="o.name != 'rectificativa'">
+				<h2 t-if="o.type != 'out_refund'">
 					<span>Factura</span>
 				</h2>
 			</xpath>
@@ -17,7 +17,7 @@
                             <strong>Fecha factura:</strong>
                             <p class="m-0" t-field="o.date_invoice"/>
                         </div>
-                        <div name="reference" class="col-auto mw-100 mb-2" t-if="o.reference">
+                        <div name="reference" class="col-auto mw-100 mb-2">
                             <strong>Número Factura:</strong>
                             <p class="m-0" t-field="o.number"/>
                         </div>
