@@ -180,9 +180,11 @@ class account_financial_html_report_custom(models.Model):
     group_account_type_filter = fields.Boolean('Group by account type')
     
     def _get_options(self, options):
-        self.filter_group_account_type = options['group_account_type']
+        if(options != False and options.get("group_account_type", False)):
+            self.filter_group_account_type = options['group_account_type']
+        else:
+            self.filter_group_account_type = False
         to_return = super(account_financial_html_report_custom, self)._get_options(options)
-        #to_return['group_account_type'] = False
         return to_return
 
 class AccountReportCustom(models.AbstractModel):
