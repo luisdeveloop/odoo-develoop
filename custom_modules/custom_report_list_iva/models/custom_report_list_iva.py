@@ -12,20 +12,32 @@ class custom_report_list_iva(models.Model):
     _name = "report.list.iva.custom"
     _description = "List of Iva"
     _auto = False
-    _order = 'x_account_id desc'
+    #_order = 'x_account_id desc'
 
-    x_account_id = fields.Integer("account_id")
     x_currency_id = fields.Many2one('res.currency', string='Currency')
     x_invoice_number = fields.Char(string="Número factura")
+    x_type = fields.Selection([
+            ('out_invoice','Factura de cliente'),
+            ('in_invoice','Factura de proveedor'),
+            ('out_refund','Factura rectificativa de cliente'),
+            ('in_refund','Factura rectificativa de proveedor'),
+        ], string="Tipo")
+    x_state = fields.Selection([
+            ('draft','Borrador'),
+            ('open', 'Abierto'),
+            ('in_payment', 'En proceso de pago'),
+            ('paid', 'Pagado'),
+            ('cancel', 'Cancelado'),
+        ], string='Estado')
     x_invoice_date = fields.Date(string="Fecha factura")
     x_invoice_partner_id = fields.Many2one('res.partner', string="Razón social")
     x_invoice_dni_nif = fields.Char(string="DNI/NIF")
     x_invoice_fiscal_position_id = fields.Many2one('account.fiscal.position', string="Posición fiscal")
     x_invoice_amount_untaxes = fields.Monetary(string="Impuesto no incluido")
     #x_invoice_tax_ids = fields.Many2many('account.tax', 'account_move_line_account_tax_rel', 'account_move_line_id')
-    x_invoice_tax_ids = fields.Char(string="% Impuesto")
+    x_tax_name = fields.Char(string="% Impuesto")
     #x_invoice_taxes_percent = fields.Char(string="% Impuesto")
-    x_invoice_taxes_value = fields.Monetary(string="Total Impuesto")
+    x_tax_value = fields.Monetary(string="Total Impuesto")
     x_invoice_amount_total = fields.Monetary(string="Total Factura")
 
 
@@ -33,63 +45,28 @@ class custom_report_list_iva(models.Model):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute('''
             CREATE OR REPLACE VIEW %s AS (
-                SELECT  max(x_account_line_id) id,
-                        x_account_id, 
-                        x_currency_id, 
-                        x_invoice_number, 
-                        x_invoice_date, 
-                        x_invoice_partner_id, 
-                        x_invoice_dni_nif, 
-                        x_invoice_fiscal_position_id,
-                        sum(x_invoice_amount_untaxes) x_invoice_amount_untaxes,
-                        x_invoice_tax_ids x_invoice_tax_ids,
-                        min(x_invoice_taxes_percent) x_invoice_taxes_percent,
-                        sum(x_invoice_taxes_value) x_invoice_taxes_value, 
-                        sum(x_invoice_amount_total) x_invoice_amount_total
-                    FROM (
-                        SELECT a_m.id as x_account_id,
-                            a_m_l.id as x_account_line_id,
-                            a_m.currency_id as x_currency_id,
-                            a_m.number as x_invoice_number,
-                            a_m.date_invoice as x_invoice_date,
-                            a_m.partner_id as x_invoice_partner_id,
-                            r_p.vat as x_invoice_dni_nif,
-                            a_m.fiscal_position_id as x_invoice_fiscal_position_id,
-                            a_m_l.price_subtotal as x_invoice_amount_untaxes,
-                            array_to_string(ARRAY_AGG(a_t.name),'; ') x_invoice_tax_ids,
-                            sum(a_t.amount) x_invoice_taxes_percent,
-                            (a_m_l.price_subtotal * sum(a_t.amount) / 100) x_invoice_taxes_value,
-                            a_m_l.price_total as x_invoice_amount_total
+                SELECT 
+                    row_number() over (order by a_m.id desc) as id,
+                    a_m.currency_id as x_currency_id,
+                    a_m.number as x_invoice_number,
+                    a_m.type as x_type,
+                    a_m.state as x_state,
+                    a_m.date_invoice as x_invoice_date,
+                    a_m.partner_id as x_invoice_partner_id,
+                    r_p.vat as x_invoice_dni_nif,
+                    a_m.fiscal_position_id as x_invoice_fiscal_position_id,
+                    CASE WHEN a_m.type = 'out_refund' OR a_m.type = 'in_refund' THEN a_i_t.base*-1 ELSE a_i_t.base END as x_invoice_amount_untaxes,
+                    a_i_t.name as x_tax_name,
+                    a_t.amount as x_tax_percent,
+                    CASE WHEN a_m.type = 'out_refund' OR a_m.type = 'in_refund' THEN a_i_t.amount*-1  ELSE a_i_t.amount END as x_tax_value,
+                    a_m.amount_total_signed as x_invoice_amount_total
 
-                        FROM account_invoice a_m INNER JOIN account_invoice_line a_m_l ON a_m.id = a_m_l.invoice_id
-                                    INNER JOIN res_partner r_p ON a_m.partner_id = r_p.id
-                                    LEFT JOIN account_invoice_line_tax a_m_l_tax ON a_m_l.id=a_m_l_tax.invoice_line_id
-                                    LEFT JOIN account_tax a_t ON a_t.id=a_m_l_tax.tax_id
-
-                        --WHERE a_m_l.exclude_from_invoice_tab=false
-                        GROUP BY a_m.id, a_m_l.id, a_m.currency_id, a_m.name, a_m.date_invoice, a_m.partner_id, r_p.vat, a_m.fiscal_position_id
-                    ) a
-                    GROUP BY a.x_account_id, a.x_currency_id, a.x_invoice_number, a.x_invoice_date, a.x_invoice_partner_id, a.x_invoice_dni_nif, a.x_invoice_fiscal_position_id, a.x_invoice_tax_ids
+                FROM account_invoice a_m INNER JOIN account_invoice_tax a_i_t ON a_m.id = a_i_t.invoice_id
+                            INNER JOIN res_partner r_p ON a_m.partner_id = r_p.id
+                            INNER JOIN account_tax a_t ON a_i_t.tax_id = a_t.id
             )
         ''' % (
             self._table,
         ))
 
-    # def read(self, fields=None, load='_classic_read'):
-    #     to_return = super(custom_report_list_iva, self).read(fields=fields, load=load)
-    #     for data in to_return:
-    #         if data.get('x_invoice_tax_ids', False):
-    #             taxes = self.env['account.tax'].search([('id','in',data.get('x_invoice_tax_ids'))])
-    #             name = ""
-    #             value = 0
-    #             isfirst = True
-    #             for tax in taxes:
-    #                 name = name + ("" if isfirst else '; ') + str(_(tax.name))
-    #                 value = value + data['x_invoice_amount_untaxes'] * tax.amount / 100
-    #                 isfirst = False
-    #             data['x_invoice_taxes_percent'] = name
-    #             data['x_invoice_taxes_value'] = value
-    #         else:
-    #             data['x_invoice_taxes_percent'] = 0
-    #             data['x_invoice_taxes_value'] = 0
-    #     return to_return
+    
