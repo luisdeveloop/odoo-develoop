@@ -54,7 +54,7 @@
                                     <td class="text-right">
                                         <span class="text-nowrap small" t-field="o.x_invoice_amount_untaxes"></span>
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-left">
                                         <span class="text-nowrap small" t-field="o.x_tax_name"></span>
                                     </td>
                                     <td class="text-right">
