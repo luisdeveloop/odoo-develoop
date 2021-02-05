@@ -14,12 +14,11 @@ class account_custom_balance_in_group_0(models.Model):
 
     _inherit = 'account.financial.html.report.line'
 
-    @api.multi
     def _get_lines(self, financial_report, currency_table, options, linesDicts):
         final_result_table = []
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
-        currency_precision = self.env.user.company_id.currency_id.rounding
+        currency_precision = self.env.company.currency_id.rounding
 
         # build comparison table
         for line in self:
@@ -56,7 +55,7 @@ class account_custom_balance_in_group_0(models.Model):
                 'id': line.id,
                 'name': line.name,
                 'level': line.level,
-                'class': 'o_account_reports_totals_below_sections' if self.env.user.company_id.totals_below_sections else '',
+                'class': 'o_account_reports_totals_below_sections' if self.env.company.totals_below_sections else '',
                 'columns': [{'name': l} for l in res['line']],
                 'unfoldable': len(domain_ids) > 1 and line.show_domain != 'always',
                 'unfolded': line.id in options.get('unfolded_lines', []) or line.show_domain == 'always',
@@ -74,10 +73,10 @@ class account_custom_balance_in_group_0(models.Model):
             if line.id in options.get('unfolded_lines', []) or line.show_domain == 'always':
                 if line.groupby:
                     domain_ids = sorted(list(domain_ids), key=lambda k: line._get_gb_name(k))
-
-                ######################################################################
+                
+                ##############################################################################
                 if options.get('group_account_type', False) == True:
-                    accounts = self.env['account.account'].search([('id','=',domain_ids)])
+                    accounts = self.env['account.account'].search([('id','in',domain_ids)])
                     account_groups = []
                     for account in accounts:
                         exist_group = list(filter(lambda f:f['group_id'] == account.group_id.id, account_groups))
@@ -107,11 +106,8 @@ class account_custom_balance_in_group_0(models.Model):
                         }
                         if line.financial_report_id.name == 'Aged Receivable':
                             vals['trust'] = self.env['res.partner'].browse([account_group['group_id']]).trust
-                        
                         lines.append(vals)
                 else:
-                    if line.groupby:
-                        domain_ids = sorted(list(domain_ids), key=lambda k: line._get_gb_name(k))
                     for domain_id in domain_ids:
                         name = line._get_gb_name(domain_id)
                         if not self.env.context.get('print_mode') or not self.env.context.get('no_format'):
@@ -130,7 +126,7 @@ class account_custom_balance_in_group_0(models.Model):
                         lines.append(vals)
                 ##############################################################################
 
-                if domain_ids and self.env.user.company_id.totals_below_sections:
+                if domain_ids and self.env.company.totals_below_sections:
                     lines.append({
                         'id': 'total_' + str(line.id),
                         'name': _('Total') + ' ' + line.name,
@@ -149,16 +145,18 @@ class account_custom_balance_in_group_0(models.Model):
                     vals['columns'] = [line._format(v) for v in vals['columns']]
                 if not line.formulas:
                     vals['columns'] = [{'name': ''} for k in vals['columns']]
-
+            
             if len(lines) == 1:
                 new_lines = line.children_ids._get_lines(financial_report, currency_table, options, linesDicts)
                 if new_lines and line.formulas:
-                    if self.env.user.company_id.totals_below_sections:
+                    if self.env.company.totals_below_sections:
                         divided_lines = self._divide_line(lines[0])
                         result = [divided_lines[0]] + new_lines + [divided_lines[-1]]
                     else:
                         result = [lines[0]] + new_lines
                 else:
+                    if not new_lines and not lines[0]['unfoldable'] and line.hide_if_empty:
+                        lines = []
                     result = lines + new_lines
             else:
                 result = lines
@@ -170,8 +168,10 @@ class account_custom_balance_in_group_0(models.Model):
         if self.groupby and self.env['account.move.line']._fields[self.groupby].relational:
             relation = self.env['account.move.line']._fields[self.groupby].comodel_name
             gb = self.env[relation].browse(gb_id)
-            return gb.name_get()[0][1] if gb and gb.exists() else _('Undefined')
+            return gb.display_name if gb and gb.exists() else _('Undefined')
         return gb_id
+
+
 
 class account_financial_html_report_custom(models.Model):
     
@@ -191,4 +191,4 @@ class AccountReportCustom(models.AbstractModel):
     
     _inherit = 'account.report'
 
-    filter_group_account_type = False
+    filter_group_account_type = None
