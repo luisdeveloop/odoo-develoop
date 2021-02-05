@@ -14,6 +14,7 @@ class custom_report_list_iva(models.Model):
     _auto = False
     #_order = 'x_account_id desc' 
 
+
     x_currency_id = fields.Many2one('res.currency', string='Currency')
     x_invoice_number = fields.Char(string="Número factura")
     x_type = fields.Selection([
