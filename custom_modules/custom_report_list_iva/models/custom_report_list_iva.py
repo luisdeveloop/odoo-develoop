@@ -39,9 +39,6 @@ class custom_report_list_iva(models.Model):
     x_tax_value = fields.Monetary(string="Total Impuesto")
     x_invoice_amount_total = fields.Monetary(string="Total Factura")
 
-
-
-
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute('''
