@@ -32,3 +32,8 @@
 	path = OCA/edi
 	url = git@github.com:OCA/edi.git
 	branch = 13.0
+
+[submodule "OCA/openupgradelib"]
+	path = OCA/openupgradelib
+	url = git@github.com:OCA/openupgradelib.git
+	branch = master
