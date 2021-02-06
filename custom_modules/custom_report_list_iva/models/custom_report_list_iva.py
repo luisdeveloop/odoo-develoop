@@ -69,3 +69,4 @@ class custom_report_list_iva(models.Model):
         ''' % (
             self._table,
         ))
+
