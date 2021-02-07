@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <template id="external_layout_background_custom" inherit_id="web.external_layout_background">
+		
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header">
+					<div class="o_background_header">
+						<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
+						<div class="float-left company_address">
+							<div>
+								<strong t-field="company.partner_id.name"/>
+							</div>
+							<span t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>
+						</div>
+						<div class="clearfix mb8"/>
+					</div>
+				</div>
+            </xpath>
+			
+        </template>
+		
+    </data>
+</odoo>
