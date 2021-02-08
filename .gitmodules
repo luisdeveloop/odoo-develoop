@@ -1,37 +1,37 @@
 [submodule "OCA/l10n-spain"]
 	path = OCA/l10n-spain
 	url = git@github.com:OCA/l10n-spain.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/community-data-files"]
 	path = OCA/community-data-files
 	url = git@github.com:OCA/community-data-files.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/reporting-engine"]
 	path = OCA/reporting-engine
 	url = git@github.com:OCA/reporting-engine.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/bank-payment"]
 	path = OCA/bank-payment
 	url = git@github.com:OCA/bank-payment.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/bank-statement-import"]
 	path = OCA/bank-statement-import
 	url = git@github.com:OCA/bank-statement-import.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/account-reconcile"]
 	path = OCA/account-reconcile
 	url = git@github.com:OCA/account-reconcile.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/edi"]
 	path = OCA/edi
 	url = git@github.com:OCA/edi.git
-	branch = 13.0
+	branch = 12.0
 
 [submodule "OCA/openupgradelib"]
 	path = OCA/openupgradelib
@@ -41,4 +41,4 @@
 [submodule "OCA/product-variant"]
 	path = OCA/product-variant
 	url = git@github.com:OCA/product-variant.git
-	branch = 13.0
+	branch = 12.0
