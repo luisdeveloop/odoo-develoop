@@ -99,7 +99,8 @@
                 </table>
 			</xpath>
 			
-			<xpath expr="//p[@t-if='o.reference']" position="replace">
+
+			<xpath expr="//t/t/div/p[1]" position="replace">
                 <p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Esta factura cubre el siguiente periodo:</strong>
 					<span t-field="o.date_invoice" t-options='{"format": "MM/yyyy"}'/>
@@ -107,34 +108,34 @@
 				</p>
             </xpath>
             
-            <xpath expr="//p[@t-if='o.comment']" position="replace">
+            <xpath expr="//p[@t-if='o.narration']" position="replace">
                 <p t-if="o.team_id.name == 'ERP'">
 					<strong>Notas:</strong>
                     <br/>
-					<span t-field="o.comment"/>
+					<span t-field="o.narration"/>
                     <br/>
 				</p>
                 <p t-if="o.team_id.name == 'Software a medida'">
 					<strong>Notas:</strong>
                     <br/>
-					<span t-field="o.comment"/>
+					<span t-field="o.narration"/>
                     <br/>
 				</p>
 				<p t-if="o.team_id.name == 'SERVICIOS'">
 					<strong>Notas:</strong>
                     <br/>
-					<span t-field="o.comment"/>
+					<span t-field="o.narration"/>
                     <br/>
 				</p>
             </xpath>
                     
-            <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
-				<p t-if="o.payment_term_id" name="payment_term">
-                    <span style="color:white" t-field="o.payment_term_id.note"/>
+            <xpath expr="//p[@t-if='o.invoice_payment_term_id']" position="replace">
+				<p t-if="o.invoice_payment_term_id" name="payment_term">
+                    <span style="color:white" t-field="o.invoice_payment_term_id.note"/>
                 </p>
 			</xpath>
                     
-            <xpath expr="//p[@t-if='o.payment_term_id']" position="after">
+            <xpath expr="//p[@t-if='o.invoice_payment_term_id']" position="after">
 				<p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Fecha vencimiento:</strong>
 					<span t-field="o.date_due"/>
@@ -144,7 +145,7 @@
             <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="replace">
                 <p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Forma de pago:</strong>
-					<span t-field="o.payment_term_id"/>
+					<span t-field="o.invoice_payment_term_id"/>
 				</p>
             </xpath>
 			
