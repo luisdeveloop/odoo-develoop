@@ -11,7 +11,7 @@
 				</h2>
 			</xpath>
             
-            <!-- <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <xpath expr="//div[@class='row mt32 mb32']" position="replace">
 				<div id="informations" class="row mt32 mb32">
                         <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
                             <strong>Fecha factura:</strong>
@@ -29,15 +29,11 @@
 				<table class="table table-sm o_main_table" name="invoice_line_table">
                         <thead>
                             <tr>
-                                <!-- TODO: remove in master -->
                                 <t t-set="colspan" t-value="6"/>
                                 <th class="text-left"><span>Descripción</span></th>
                                 <th class="d-none text-left"><span>Source Document</span></th>
-                                <!--<th t-if="o.team_id.name != 'ERP'" class="text-right"><span>Cantidad</span></th>-->
-                                <!--<th t-if="o.team_id.name != 'ERP'" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Precio unitario</span></th>-->
                                 <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                     <span>Dto.(%)</span>
-                                    <!-- TODO: remove in master -->
                                     <t t-set="colspan" t-value="colspan+1"/>
                                 </th>
                                 <th class="text-right">
@@ -58,12 +54,6 @@
                                     <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                         <td name="account_invoice_line_name"><span t-field="line.name"/></td>
                                         <td class="d-none"><span t-field="o.invoice_origin"/></td>
-                                        <!--<td t-if="o.team_id.name != 'ERP'" class="text-right">
-                                            <span t-field="line.quantity"/>
-                                        </td>-->
-                                        <!--<td t-if="o.team_id.name != 'ERP'" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                            <span t-field="line.price_unit"/>
-                                        </td>-->
                                         <td t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span t-field="line.discount"/>
                                         </td>
@@ -147,7 +137,7 @@
 					<strong>Forma de pago:</strong>
 					<span t-field="o.invoice_payment_term_id"/>
 				</p>
-            </xpath> -->
+            </xpath>
 			
         </template>   
 	</data>
