@@ -13,13 +13,13 @@
             
             <xpath expr="//div[@class='row mt32 mb32']" position="replace">
 				<div id="informations" class="row mt32 mb32">
-                        <div class="col-auto mw-100 mb-2" t-if="o.date_invoice" name="invoice_date">
+                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
                             <strong>Fecha factura:</strong>
-                            <p class="m-0" t-field="o.date_invoice"/>
+                            <p class="m-0" t-field="o.invoice_date"/>
                         </div>
                         <div name="reference" class="col-auto mw-100 mb-2">
                             <strong>Número Factura:</strong>
-                            <p class="m-0" t-field="o.number"/>
+                            <p class="m-0" t-field="o.name"/>
                         </div>
                 </div>
 			</xpath>
@@ -57,7 +57,7 @@
                                 <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                                     <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                         <td name="account_invoice_line_name"><span t-field="line.name"/></td>
-                                        <td class="d-none"><span t-field="line.origin"/></td>
+                                        <td class="d-none"><span t-field="o.invoice_origin"/></td>
                                         <!--<td t-if="o.team_id.name != 'ERP'" class="text-right">
                                             <span t-field="line.quantity"/>
                                         </td>-->
@@ -103,7 +103,7 @@
 			<xpath expr="//t/t/div/p[1]" position="replace">
                 <p t-if="o.team_id.name == 'Mantenimientos'">
 					<strong>Esta factura cubre el siguiente periodo:</strong>
-					<span t-field="o.date_invoice" t-options='{"format": "MM/yyyy"}'/>
+					<span t-field="o.invoice_date" t-options='{"format": "MM/yyyy"}'/>
                     <br/>
 				</p>
             </xpath>
