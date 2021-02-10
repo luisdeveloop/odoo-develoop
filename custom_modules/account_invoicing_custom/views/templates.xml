@@ -11,7 +11,7 @@
 				</h2>
 			</xpath>
             
-            <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <!-- <xpath expr="//div[@class='row mt32 mb32']" position="replace">
 				<div id="informations" class="row mt32 mb32">
                         <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
                             <strong>Fecha factura:</strong>
@@ -138,7 +138,7 @@
 					<span t-field="o.invoice_payment_term_id"/>
 				</p>
             </xpath>
-			
+			 -->
         </template>   
 	</data>
 </odoo>
