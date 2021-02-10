@@ -14,3 +14,7 @@
 	path = OCA/connector
 	url = git@github.com:OCA/connector.git
 	branch = 13.0
+[submodule "OCA/bank-payment"]
+	path = OCA/bank-payment
+	url = git@github.com:OCA/bank-payment.git
+	branch = 13.0
