@@ -2,7 +2,7 @@
 	<data>
 		<template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
 		
-			<xpath expr="//div[@class='page']//h2" position="replace">
+			<xpath expr="//div[@hasclass='page']//h2" position="replace">
 				<h2 t-if="o.type == 'out_refund'">
 					<span>Factura Rectificativa</span>
 				</h2>
@@ -11,7 +11,7 @@
 				</h2>
 			</xpath>
             
-            <!-- <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <xpath expr="//div[@hasclass='row mt32 mb32']" position="replace">
 				<div id="informations" class="row mt32 mb32">
                         <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
                             <strong>Fecha factura:</strong>
@@ -25,7 +25,7 @@
 			</xpath>
 			
 			
-			<xpath expr="//table[@class='table table-sm o_main_table']" position="replace">
+			<xpath expr="//table[@hasclass='table table-sm o_main_table']" position="replace">
 				<table class="table table-sm o_main_table" name="invoice_line_table">
                         <thead>
                             <tr>
@@ -138,7 +138,7 @@
 					<span t-field="o.invoice_payment_term_id"/>
 				</p>
             </xpath>
-			 -->
+			
         </template>   
 	</data>
 </odoo>
