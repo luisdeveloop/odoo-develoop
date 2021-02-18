@@ -7,7 +7,6 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
-
 class custom_report_list_iva(models.Model):
     
     _name = "report.list.iva.custom"
