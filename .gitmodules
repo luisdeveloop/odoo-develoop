@@ -2,10 +2,6 @@
 	path = OCA/edi
 	url = git@github.com:OCA/edi.git
 	branch = 13.0
-[submodule "OCA/connector"]
-	path = OCA/connector
-	url = git@github.com:OCA/connector.git
-	branch = 13.0
 [submodule "OCA/l10n-spain"]
 	path = OCA/l10n-spain
 	url = git@github.com:OCA/l10n-spain.git
