@@ -17,3 +17,8 @@
 	path = OCA/l10n-spain
 	url = git@github.com:OCA/l10n-spain.git
 	branch = 13.0
+
+[submodule "OCA/edi"]
+	path = OCA/edi
+	url = git@github.com:OCA/edi.git
+	branch = 13.0
