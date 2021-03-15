@@ -17,7 +17,7 @@ class InvoiceReportListCustom(models.Model):
 
     def get_datas(self):
         for invoice in self:
-            invoice.x_amount_untaxed_signed = invoice.invoice_id.amount_untaxed_signed
-            invoice.x_amount_tax_signed = invoice.invoice_id.amount_tax
-            invoice.x_amount_total_signed = invoice.invoice_id.amount_total_signed
-            invoice.x_residual_signed = invoice.invoice_id.residual_signed
+            invoice.x_amount_untaxed_signed = invoice.move_id.amount_untaxed_signed
+            invoice.x_amount_tax_signed = invoice.move_id.amount_tax
+            invoice.x_amount_total_signed = invoice.move_id.amount_total_signed
+            invoice.x_residual_signed = invoice.move_id.amount_residual_signed

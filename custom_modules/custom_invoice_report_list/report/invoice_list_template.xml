@@ -26,7 +26,7 @@
                                 <th name="th_price_total" class="text-right"><span class="small o_bold">Impuesto no incluido</span></th>
                                 <th name="th_amount_tax" class="text-right"><span class="small o_bold">Impuesto</span></th>
                                 <th name="th_amount_total" class="text-right"><span class="small o_bold">Total</span></th>
-                                <th name="th_user_currency_residual" class="text-left"><span class="small o_bold">Importe adeudado</span></th>
+                                <th name="th_user_currency_residual" class="text-right"><span class="small o_bold">Importe adeudado</span></th>
                                 <th name="th_state" class="text-right"><span class="small o_bold">Estado</span></th>
                             </tr>
                         </thead>
@@ -41,16 +41,16 @@
                                         <span class="small" t-field="o.partner_id"></span>
                                     </td>
                                     <td class="text-left">
-                                        <span class="small" t-field="o.date"></span>
+                                        <span class="small" t-field="o.invoice_date"></span>
                                     </td>  
                                     <td class="text-left">
-                                        <span class="small" t-field="o.number"></span>
+                                        <span class="small" t-field="o.name"></span>
                                     </td>                                                                      
                                     <td class="text-left">
-                                        <span class="small" t-field="o.user_id"></span>
+                                        <span class="small" t-field="o.invoice_user_id"></span>
                                     </td>
                                     <td class="text-left">
-                                        <span class="text-nowrap small" t-field="o.date_due"></span>
+                                        <span class="text-nowrap small" t-field="o.invoice_date_due"></span>
                                     </td>
                                     <td class="text-right">
                                         <span class="text-nowrap small" t-field="o.x_amount_untaxed_signed"  t-options="{'widget': 'monetary', 'display_currency': currency_id}"></span>
