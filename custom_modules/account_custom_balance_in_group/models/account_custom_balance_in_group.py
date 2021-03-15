@@ -10,6 +10,7 @@ from itertools import groupby
 
 _logger = logging.getLogger(__name__)
 
+
 class account_custom_balance_in_group_0(models.Model):
 
     _inherit = 'account.financial.html.report.line'

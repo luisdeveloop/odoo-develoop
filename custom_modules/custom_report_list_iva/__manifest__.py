@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- 
 {
     'name': "Reporte Listado IVA",
     'version': '1.0.0.0',

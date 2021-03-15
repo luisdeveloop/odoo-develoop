@@ -2,8 +2,9 @@
     <data>
         <template id="external_layout_background_custom" inherit_id="web.external_layout_background">
 		
-            <xpath expr="//div[@class='header']" position="replace">
-                <div class="header">
+            <!-- <xpath expr="//div[@class='header']" position="replace"> -->
+			<xpath expr="//div[@t-attf-class='o_company_#{company.id}_layout header']" position="replace">
+                <div t-attf-class="o_company_#{company.id}_layout header">
 					<div class="o_background_header">
 						<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
 						<div class="float-left company_address">
@@ -16,8 +17,7 @@
 					</div>
 				</div>
             </xpath>
-			
+
         </template>
-		
     </data>
 </odoo>
