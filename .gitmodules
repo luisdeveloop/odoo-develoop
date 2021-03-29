@@ -8,11 +8,6 @@
 	url = git@github.com:OCA/community-data-files.git
 	branch = 13.0
 
-[submodule "OCA/edi"]
-	path = OCA/edi
-	url = git@github.com:OCA/edi.git
-	branch = 13.0
-
 [submodule "OCA/connector"]
 	path = OCA/connector
 	url = git@github.com:OCA/connector.git
