@@ -17,10 +17,10 @@ class InvoiceReportListCustom(models.Model):
 
     def get_datas(self):
         for invoice in self:
-            invoice.x_amount_untaxed_signed = invoice.invoice_id.amount_untaxed_signed
-            invoice.x_amount_tax_signed = invoice.invoice_id.amount_tax
-            invoice.x_amount_total_signed = invoice.invoice_id.amount_total_signed
-            invoice.x_residual_signed = invoice.invoice_id.residual_signed
+            invoice.x_amount_untaxed_signed = invoice.move_id.amount_untaxed_signed
+            invoice.x_amount_tax_signed = invoice.move_id.amount_tax
+            invoice.x_amount_total_signed = invoice.move_id.amount_total_signed
+            invoice.x_residual_signed = invoice.move_id.amount_residual_signed
 
 
     @api.model
@@ -35,48 +35,12 @@ class InvoiceReportListCustom(models.Model):
                 new_data = {
                     'id': record.get('id', False),
                     'partner_id': record.get('partner_id', False),
-                    'date': record.get('date',False),
-                    'number': record.get('number',False),
-                    'user_id': record.get('user_id',False),
-                    'date_due': record.get('date_due',False),
+                    'invoice_date': record.get('invoice_date',False),
+                    'name': record.get('name',False),
+                    'invoice_user_id': record.get('invoice_user_id',False),
+                    'invoice_date_due': record.get('invoice_date_due',False),
                     'currency_id': record.get('currency_id',False),
                     'state': record.get('state',False),
-                    'x_amount_untaxed_signed': record.get('x_amount_untaxed_signed',False),
-                    'x_amount_tax_signed': record.get('x_amount_tax_signed',False),
-                    'x_amount_total_signed': record.get('x_amount_total_signed',False),
-                    'x_residual_signed': record.get('x_residual_signed',False),
-
-                    'product_id': record.get('product_id',False),
-                    'product_qty': record.get('product_qty',False),
-                    'uom_name': record.get('uom_name',False),
-                    'payment_term_id': record.get('payment_term_id', False),
-                    'fiscal_position_id': record.get('fiscal_position_id', False),
-                    'currency_id': record.get('currency_id',False),
-                    'categ_id': record.get('categ_id',False),
-                    'journal_id': record.get('categ_id',False),
-                    'partner_id': record.get('partner_id',False),
-                    'commercial_partner_id': record.get('commercial_partner_id',False),
-                    'company_id': record.get('company_id',False),
-                    'user_id': record.get('user_id',False),
-                    'price_total': record.get('price_total',False),
-                    'user_currency_price_total': record.get('user_currency_price_total',False),
-                    'price_average': record.get('price_average',False),
-                    'user_currency_price_average': record.get('user_currency_price_average',False),
-                    'currency_rate': record.get('currency_rate',False),
-                    'nbr': record.get('nbr',False),
-                    'invoice_id': record.get('invoice_id',False),
-                    'type': record.get('type',False),
-                    'state': record.get('state',False),
-                    'date_due': record.get('date_due',False),
-                    'account_id': record.get('account_id',False),
-                    'account_line_id': record.get('account_line_id',False),
-                    'partner_bank_id': record.get('partner_bank_id',False),
-                    'residual': record.get('residual',False),
-                    'user_currency_residual': record.get('user_currency_residual',False),
-                    'country_id': record.get('country_id',False),
-                    'account_analytic_id': record.get('account_analytic_id',False),
-                    'amount_total': record.get('amount_total',False),
-
                     'x_amount_untaxed_signed': record.get('x_amount_untaxed_signed',False),
                     'x_amount_tax_signed': record.get('x_amount_tax_signed',False),
                     'x_amount_total_signed': record.get('x_amount_total_signed',False),
