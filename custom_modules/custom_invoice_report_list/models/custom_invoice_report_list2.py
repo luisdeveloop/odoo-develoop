@@ -60,7 +60,7 @@ class AccountInvoiceReport(models.Model):
 
     x_amount_untaxed_signed = fields.Monetary("Impuesto no incluido", compute="get_datas")
     x_amount_tax_signed = fields.Monetary(string='Impuesto', compute="get_datas")
-    x_amount_total_signed = fields.Monetary(string='Total', compute="get_datas")
+    x_amount_total_signed = fields.Monetary(string='Total ', compute="get_datas")
     x_residual_signed = fields.Monetary(string='Importe adeudado', compute="get_datas")
 
     _depends = {
