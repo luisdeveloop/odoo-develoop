@@ -15,6 +15,7 @@ class InvoiceReportListCustom(models.Model):
     x_amount_total_signed = fields.Monetary(string='Total ', compute="get_datas")
     x_residual_signed = fields.Monetary(string='Importe adeudado', compute="get_datas")
 
+
     def get_datas(self):
         for invoice in self:
             invoice.x_amount_untaxed_signed = invoice.move_id.amount_untaxed_signed
