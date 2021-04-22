@@ -22,7 +22,6 @@ class InvoiceReportListCustom(models.Model):
             invoice.x_amount_total_signed = invoice.move_id.amount_total_signed
             invoice.x_residual_signed = invoice.move_id.amount_residual_signed
 
-
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
         #data2 = super().search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
