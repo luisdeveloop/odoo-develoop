@@ -10,6 +10,7 @@ class AccountInvoiceReport(models.Model):
     _auto = False
     _rec_name = 'date'
 
+
     @api.multi
     @api.depends('currency_id', 'date', 'price_total', 'price_average', 'residual')
     def _compute_amounts_in_user_currency(self):
