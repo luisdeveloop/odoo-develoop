@@ -5,7 +5,6 @@ from odoo import models, fields, api
 
 from functools import lru_cache
 
-
 class AccountInvoiceReport(models.Model):
     _name = "account.invoice.report2"
     _description = "Invoices Statistics 2"
