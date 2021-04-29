@@ -12,6 +12,7 @@ class AccountInvoiceReport(models.Model):
     _rec_name = 'invoice_date'
     _order = 'invoice_date desc'
 
+
     # ==== Invoice fields ====
     move_id = fields.Many2one('account.move', readonly=True)
     name = fields.Char('Invoice #', readonly=True)
