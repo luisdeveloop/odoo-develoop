@@ -5,13 +5,13 @@ from odoo import models, fields, api
 
 from functools import lru_cache
 
-
 class AccountInvoiceReport(models.Model):
     _name = "account.invoice.report2"
     _description = "Invoices Statistics 2"
     _auto = False
     _rec_name = 'invoice_date'
     _order = 'invoice_date desc'
+
 
     # ==== Invoice fields ====
     move_id = fields.Many2one('account.move', readonly=True)
