@@ -72,3 +72,8 @@
 	path = OCA/hr-attendance
 	url = git@github.com:OCA/hr-attendance.git
 	branch = 13.0
+
+[submodule "OCA/hr-holidays"]
+	path = OCA/hr-holidays
+	url = git@github.com:OCA/hr-holidays.git
+	branch = 13.0
