@@ -16,16 +16,17 @@ class l10n_es_aeat_res_partner_custom(models.AbstractModel):
         """ Return tuple with split info (country_code, identifier_type and
             vat_number) from vat and country partner
         """
-        for record in self:
-            vat_number = record.vat or ""
-            prefix = record._map_aeat_country_code(vat_number[:2].upper())
-            if prefix in record._get_aeat_europe_codes():
+        if self:
+            self.ensure_one()
+            vat_number = self.vat or ""
+            prefix = self._map_aeat_country_code(vat_number[:2].upper())
+            if prefix in self._get_aeat_europe_codes():
                 country_code = prefix
                 vat_number = vat_number[2:]
                 identifier_type = "02"
             else:
-                country_code = record._map_aeat_country_code(record.country_id.code) or ""
-                if country_code in record._get_aeat_europe_codes():
+                country_code = self._map_aeat_country_code(self.country_id.code) or ""
+                if country_code in self._get_aeat_europe_codes():
                     identifier_type = "02"
                 else:
                     identifier_type = "04"
