@@ -33,9 +33,9 @@ class log_view_custom(models.AbstractModel):
             sheet.write("I" + str(row), "VENTA POR CAJA")
         else:
             _logger.info("DATA")
+            _logger.info(line)
             _logger.info(line.partner_id)
-            _logger.info(line.partner_id.name)
-            if line.partner_id and line.partner_id.name != False:
+            if line.partner_id and line.partner_id.name:
                 sheet.write("I" + str(row), line.partner_id.name[:40])
             else:
                 sheet.write("I" + str(row), '')
