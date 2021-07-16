@@ -14,12 +14,16 @@ class log_view_custom(models.AbstractModel):
         self, sheet, row, line, tax_line, with_total, draft_export
     ):
         """ Fill issued data """
-
-        (
-            country_code,
-            identifier_type,
-            vat_number,
-        ) = line.partner_id._parse_aeat_vat_info()
+        if line.partner_id and line.partner_id.id:
+            (
+                country_code,
+                identifier_type,
+                vat_number,
+            ) = line.partner_id._parse_aeat_vat_info()
+        else:
+            country_code = ''
+            identifier_type = ''
+            vat_number = ''
         sheet.write("A" + str(row), self.format_boe_date(line.invoice_date))
         # sheet.write('B' + str(row), self.format_boe_date(line.invoice_date))
         sheet.write("C" + str(row), line.ref[:-20])
@@ -32,10 +36,7 @@ class log_view_custom(models.AbstractModel):
         if not vat_number and line.partner_id.aeat_anonymous_cash_customer:
             sheet.write("I" + str(row), "VENTA POR CAJA")
         else:
-            _logger.info("DATA")
-            _logger.info(line)
-            _logger.info(line.partner_id)
-            if line.partner_id and line.partner_id.name:
+            if line.partner_id:
                 sheet.write("I" + str(row), line.partner_id.name[:40])
             else:
                 sheet.write("I" + str(row), '')
@@ -48,6 +49,61 @@ class log_view_custom(models.AbstractModel):
         sheet.write("M" + str(row), tax_line.base_amount)
         sheet.write("N" + str(row), tax_line.tax_id.amount)
         sheet.write("O" + str(row), tax_line.tax_amount)
+        if tax_line.special_tax_id:
+            map_vals = line.vat_book_id.get_special_taxes_dic()[
+                tax_line.special_tax_id.id
+            ]
+            sheet.write(
+                map_vals["fee_type_xlsx_column"] + str(row),
+                tax_line.special_tax_id.amount,
+            )
+            sheet.write(
+                map_vals["fee_amount_xlsx_column"] + str(row),
+                tax_line.special_tax_amount,
+            )
+        if draft_export:
+            last_column = sheet.dim_colmax
+            num_row = row - 1
+            sheet.write(num_row, last_column, tax_line.tax_id.name)
+        
+        
+    def fill_received_row_data(
+        self, sheet, row, line, tax_line, with_total, draft_export
+    ):
+        """ Fill received data """
+
+        date_invoice = line.move_id.date
+        (
+            country_code,
+            identifier_type,
+            vat_number,
+        ) = line.partner_id._parse_aeat_vat_info()
+        sheet.write("A" + str(row), self.format_boe_date(line.invoice_date))
+        if date_invoice and date_invoice != line.invoice_date:
+            sheet.write("B" + str(row), self.format_boe_date(date_invoice))
+        sheet.write("C" + str(row), line.external_ref and line.external_ref[:40] or "")
+        sheet.write("D" + str(row), "")
+        sheet.write("E" + str(row), line.ref[:20])
+        sheet.write("F" + str(row), "")
+        sheet.write("G" + str(row), identifier_type)
+        if country_code != "ES":
+            sheet.write("H" + str(row), country_code)
+        sheet.write("I" + str(row), vat_number)
+        if line.partner_id:
+            sheet.write("J" + str(row), line.partner_id.name[:40])
+        else:
+            sheet.write("J" + str(row), '')
+        # TODO: Substitute Invoice
+        # sheet.write('K' + str(row),
+        #             line.invoice_id.refund_invoice_id.number or '')
+        sheet.write("L" + str(row), "")  # Operation Key
+        if with_total:
+            sheet.write("M" + str(row), line.total_amount)
+        sheet.write("N" + str(row), tax_line.base_amount)
+        sheet.write("O" + str(row), tax_line.tax_id.amount)
+        sheet.write("P" + str(row), tax_line.tax_amount)
+        if tax_line.tax_id not in self._get_undeductible_taxes(line.vat_book_id):
+            sheet.write("Q" + str(row), tax_line.tax_amount)
         if tax_line.special_tax_id:
             map_vals = line.vat_book_id.get_special_taxes_dic()[
                 tax_line.special_tax_id.id
