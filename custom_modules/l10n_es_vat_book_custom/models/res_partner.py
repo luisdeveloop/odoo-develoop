@@ -34,4 +34,4 @@ class l10n_es_aeat_res_partner_custom(models.AbstractModel):
                 identifier_type = ""
             return country_code, identifier_type, vat_number
         else:
-            return False, False, False
+            return '', '', ''
