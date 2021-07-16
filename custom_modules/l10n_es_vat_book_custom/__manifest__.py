@@ -9,7 +9,7 @@
     'description': """
         Libro Iva Correccion Errores Custom
         """,
-    'depends': ['l10n_es_vat_book'],
+    'depends': ['l10n_es_vat_book','l10n_es_aeat'],
     'data': [
     ],
     'demo': [],
