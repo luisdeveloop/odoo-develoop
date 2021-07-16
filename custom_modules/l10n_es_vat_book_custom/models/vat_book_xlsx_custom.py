@@ -32,7 +32,7 @@ class log_view_custom(models.AbstractModel):
         if not vat_number and line.partner_id.aeat_anonymous_cash_customer:
             sheet.write("I" + str(row), "VENTA POR CAJA")
         else:
-            if line.partner_id:
+            if line.partner_id and line.partner_id.name:
                 sheet.write("I" + str(row), line.partner_id.name[:40])
             else:
                 sheet.write("I" + str(row), '')
